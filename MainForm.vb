@@ -19,6 +19,24 @@ Public Class MainForm
     End Sub
 
     Private Sub MainForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ' Set window title with date/time of the exe
+        Try
+            Dim exePath As String = System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName
+            Dim exeName As String = System.IO.Path.GetFileNameWithoutExtension(exePath)
+            Dim match As System.Text.RegularExpressions.Match = System.Text.RegularExpressions.Regex.Match(exeName, "_(\d{6})_(\d{6})$")
+            If match.Success Then
+                Dim dateStr As String = match.Groups(1).Value
+                Dim timeStr As String = match.Groups(2).Value
+                Dim formattedDateTime As String = $"{dateStr.Substring(0, 2)}/{dateStr.Substring(2, 2)}/{dateStr.Substring(4, 2)} {timeStr.Substring(0, 2)}:{timeStr.Substring(2, 2)}:{timeStr.Substring(4, 2)}"
+                Me.Text = $"DeckLink Audio Recorder - {formattedDateTime}"
+            Else
+                Dim fileInfo As New System.IO.FileInfo(exePath)
+                Me.Text = $"DeckLink Audio Recorder - {fileInfo.LastWriteTime:dd/MM/yy HH:mm:ss}"
+            End If
+        Catch ex As Exception
+            Me.Text = "DeckLink Audio Recorder"
+        End Try
+
         Log("Application started.")
 
         ' Load settings

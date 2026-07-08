@@ -89,7 +89,7 @@ Partial Class MainForm
         Me.lblAppTitle.Name = "lblAppTitle"
         Me.lblAppTitle.Size = New System.Drawing.Size(370, 30)
         Me.lblAppTitle.TabIndex = 0
-        Me.lblAppTitle.Text = "BLACKMAGIC DECKLINK RECORDER"
+        Me.lblAppTitle.Text = "DECKLINK AUDIO RECORDER"
         
         ' ----------------------------------------------------
         ' pnlConfig (Left Card Panel)
