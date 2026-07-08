@@ -1,0 +1,7 @@
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at decklinkaudiorecorder.MainForm.InitializeComponent() in C:\Users\vimlesh\Documents\vimlesh\decklinkaudiorecorder\MainForm.Designer.vb:line 156
+   at decklinkaudiorecorder.MainForm..ctor() in C:\Users\vimlesh\Documents\vimlesh\decklinkaudiorecorder\MainForm.vb:line 18
+   at decklinkaudiorecorder.Program.Main(String[] args) in C:\Users\vimlesh\Documents\vimlesh\decklinkaudiorecorder\Program.vb:line 17
+   at decklinkaudiorecorder.MainForm.InitializeComponent() in C:\Users\vimlesh\Documents\vimlesh\decklinkaudiorecorder\MainForm.Designer.vb:line 156
+   at decklinkaudiorecorder.MainForm..ctor() in C:\Users\vimlesh\Documents\vimlesh\decklinkaudiorecorder\MainForm.vb:line 18
+   at decklinkaudiorecorder.Program.Main(String[] args) in C:\Users\vimlesh\Documents\vimlesh\decklinkaudiorecorder\Program.vb:line 17

@@ -1,0 +1,49 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <Platforms>x64</Platforms>
+    <PlatformTarget>x64</PlatformTarget>
+    <RootNamespace>decklinkaudiorecorder</RootNamespace>
+    <StartupObject>Sub Main</StartupObject>
+    <UseWindowsForms>true</UseWindowsForms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Import Include="System.Data" />
+    <Import Include="System.Drawing" />
+    <Import Include="System.Windows.Forms" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="DeckLinkAPI.Interop">
+      <HintPath>DeckLinkSdk\DeckLinkAPI.Interop.dll</HintPath>
+      <Private>true</Private>
+      <EmbedInteropTypes>false</EmbedInteropTypes>
+    </Reference>
+  </ItemGroup>
+
+  <Target Name="KillRunningInstances" BeforeTargets="PrepareForBuild">
+    <Exec Command="powershell -Command &quot;Get-Process | Where-Object { $_.Name -like '*decklinkaudiorecorder*' } | Stop-Process -Force -ErrorAction SilentlyContinue&quot;" IgnoreExitCode="true" />
+  </Target>
+
+  <Target Name="CreateTimestampedExecutableCopy" AfterTargets="Build" Condition="Exists('$(TargetDir)$(AssemblyName).exe')">
+    <PropertyGroup>
+      <ExecutableSourcePath>$(TargetDir)$(AssemblyName).exe</ExecutableSourcePath>
+      <TimestampedExecutableBaseName>DeckLinkAudioRecorder</TimestampedExecutableBaseName>
+      <TimestampedExecutablePath>$(TargetDir)$(TimestampedExecutableBaseName)_$([System.DateTime]::Now.ToString('ddMMyy_HHmmss')).exe</TimestampedExecutablePath>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ExistingTimestampedExecutables Include="$(TargetDir)$(AssemblyName)_*.exe" />
+      <ExistingTimestampedExecutables Include="$(TargetDir)$(TimestampedExecutableBaseName)_*.exe" />
+    </ItemGroup>
+
+    <Delete Files="@(ExistingTimestampedExecutables)" />
+    <Copy SourceFiles="$(ExecutableSourcePath)" DestinationFiles="$(TimestampedExecutablePath)" />
+    <Message Importance="High" Text="Created timestamped executable: $(TimestampedExecutablePath)" />
+    <Exec Command="explorer.exe &quot;$(TimestampedExecutablePath)&quot;" IgnoreExitCode="true" />
+  </Target>
+
+</Project>
