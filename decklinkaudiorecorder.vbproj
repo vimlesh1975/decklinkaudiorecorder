@@ -42,6 +42,7 @@
 
     <Delete Files="@(ExistingTimestampedExecutables)" />
     <Copy SourceFiles="$(ExecutableSourcePath)" DestinationFiles="$(TimestampedExecutablePath)" />
+    <Delete Files="$(ExecutableSourcePath)" />
     <Message Importance="High" Text="Created timestamped executable: $(TimestampedExecutablePath)" />
     <Exec Command="explorer.exe &quot;$(TimestampedExecutablePath)&quot;" IgnoreExitCode="true" />
   </Target>
